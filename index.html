@@ -3,203 +3,285 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Nguyen Le Thuy Lan | Data Science & Bioinformatics</title>
+    <title>Nguyen Le Thuy Lan | Personal System</title>
     <style>
-        /* CSS Reset to remove default margins */
+        /* CSS Reset */
         * {
             box-sizing: border-box;
             margin: 0;
             padding: 0;
         }
 
-        /* 
-         * GLOBAL STYLES (The "Code Vibe")
-         * Using dark theme colors and monospace fonts 
-         */
+        /* Global Theme: Terminal Engineering Log */
         body {
-            background-color: #0d1117; /* GitHub Dark background */
-            color: #c9d1d9; /* Light grey text */
-            font-family: 'Consolas', 'Fira Code', 'Courier New', monospace;
+            background-color: #080c09; /* Deep dark terminal background */
+            color: #a3be8c; /* Muted green text for general content */
+            font-family: 'Fira Code', 'Consolas', monospace;
             line-height: 1.6;
-            display: flex; /* Flexbox to put sidebar and content side-by-side */
+            padding: 40px;
         }
 
-        /* 
-         * SIDEBAR STYLES (The Sticky Table of Contents)
-         */
-        .sidebar {
-            width: 280px;
-            background-color: #161b22; /* Slightly lighter dark for sidebar */
-            padding: 30px 20px;
-            height: 100vh; /* Make sidebar take full height of the screen */
-            position: sticky; /* This makes it stick when scrolling */
-            top: 0;
-            border-right: 1px solid #30363d;
-            overflow-y: auto; /* Allow scrolling within sidebar if too many links */
+        /* Layout Container */
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
         }
 
-        .sidebar h2 {
-            color: #58a6ff; /* A nice code-like blue */
-            font-size: 1.2rem;
-            margin-bottom: 20px;
+        /* Top Header & Navigation Bar */
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            border-bottom: 1px solid #1e2820;
+            padding-bottom: 20px;
+            margin-bottom: 40px;
         }
 
-        .sidebar ul {
-            list-style-type: none;
+        .site-branding h1 {
+            font-size: 0.95rem;
+            color: #d2ff70; /* Vibrant lime accent */
+            letter-spacing: 1px;
+            text-transform: uppercase;
         }
 
-        .sidebar ul li {
-            margin-bottom: 15px;
+        .site-branding p {
+            font-size: 0.75rem;
+            color: #5b6d5e;
+            margin-top: 4px;
         }
 
-        .sidebar ul li a {
-            color: #8b949e;
+        .nav-links {
+            display: flex;
+            gap: 20px;
+            list-style: none;
+            font-size: 0.8rem;
+        }
+
+        .nav-links a {
+            color: #5b6d5e;
             text-decoration: none;
-            transition: color 0.3s;
+            transition: color 0.2s;
         }
 
-        .sidebar ul li a:hover {
-            color: #58a6ff; /* Highlight link on hover */
+        .nav-links a.active, .nav-links a:hover {
+            color: #d2ff70;
+            border-bottom: 1px solid #d2ff70;
         }
 
-        /* 
-         * MAIN CONTENT STYLES
-         */
-        .content {
-            flex: 1; /* Take up all remaining space */
-            padding: 40px 60px;
-            max-width: 900px;
+        /* Main Section Header */
+        .section-header {
+            margin-bottom: 40px;
         }
 
-        /* Typography for the main content */
-        h1, h2, h3 {
-            color: #58a6ff;
-            margin-top: 40px;
+        .sub-title {
+            font-size: 0.75rem;
+            color: #5b6d5e;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 8px;
+        }
+
+        .main-title {
+            font-size: 2.8rem;
+            color: #d2ff70;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+
+        .tagline {
+            font-size: 0.95rem;
+            color: #8fbcbb;
+        }
+
+        /* Divider Line */
+        .divider {
+            border: none;
+            border-top: 1px solid #1e2820;
+            margin: 40px 0;
+        }
+
+        /* Search Section */
+        .search-section {
+            margin-bottom: 50px;
+        }
+
+        .search-bar-wrapper {
+            display: flex;
+            align-items: center;
+            border: 1px solid #233326;
+            background-color: #050806;
+            padding: 12px 16px;
+            border-radius: 4px;
+            margin-top: 10px;
+        }
+
+        .search-input {
+            background: transparent;
+            border: none;
+            color: #d2ff70;
+            font-family: inherit;
+            font-size: 0.9rem;
+            width: 100%;
+            outline: none;
+        }
+
+        .search-input::placeholder {
+            color: #3b4d3f;
+        }
+
+        .search-shortcut {
+            background-color: #162319;
+            color: #8fbcbb;
+            padding: 2px 8px;
+            font-size: 0.75rem;
+            border-radius: 3px;
+        }
+
+        .search-hint {
+            font-size: 0.75rem;
+            color: #4c5d50;
+            margin-top: 8px;
+        }
+
+        /* Records / Post List Table */
+        .records-section h3 {
+            font-size: 1.5rem;
+            color: #d2ff70;
+            margin-bottom: 20px;
+        }
+
+        .records-header-info {
+            display: flex;
+            justify-content: space-between;
+            font-size: 0.75rem;
+            color: #5b6d5e;
+            text-transform: uppercase;
+            border-bottom: 1px solid #1e2820;
+            padding-bottom: 8px;
             margin-bottom: 15px;
-            border-bottom: 1px solid #30363d;
-            padding-bottom: 5px;
         }
 
-        h1 {
-            font-size: 2.5rem;
-            margin-top: 0;
-            border-bottom: none;
+        .record-item {
+            display: grid;
+            grid-template-columns: 100px 1fr 150px;
+            padding: 12px 0;
+            border-bottom: 1px solid #111a13;
+            font-size: 0.9rem;
+            align-items: center;
+            transition: background 0.2s;
         }
 
-        p {
-            margin-bottom: 20px;
-            font-size: 1.05rem;
+        .record-item:hover {
+            background-color: #0c140f;
         }
 
-        /* Code snippets styling inside the text */
-        .highlight {
-            color: #7ee787; /* Green for variables/highlights */
+        .record-date {
+            color: #5b6d5e;
+            font-size: 0.8rem;
         }
 
-        .terminal-block {
-            background-color: #010409;
-            padding: 15px;
-            border-radius: 6px;
-            border: 1px solid #30363d;
-            margin-bottom: 20px;
-            color: #e6edf3;
+        .record-title a {
+            color: #d2ff70;
+            text-decoration: none;
+        }
+
+        .record-title a:hover {
+            text-decoration: underline;
+        }
+
+        .record-topic {
+            color: #8fbcbb;
+            font-size: 0.8rem;
+            text-align: right;
+        }
+
+        /* Footer */
+        footer {
+            margin-top: 80px;
+            border-top: 1px solid #1e2820;
+            padding-top: 20px;
+            font-size: 0.75rem;
+            color: #4c5d50;
+            display: flex;
+            justify-content: space-between;
         }
     </style>
 </head>
 <body>
 
-    <!-- 
-      SIDEBAR SECTION
-      This will stay fixed on the left side. 
-      The 'href' attributes match the 'id' attributes in the content section.
-    -->
-    <nav class="sidebar">
-        <h2>> _Navigation</h2>
-        <ul>
-            <li><a href="#about">> About Me</a></li>
-            <li><a href="#background">> The Bioinformatics Root</a></li>
-            <li><a href="#data-science">> Transition to Data Science</a></li>
-            <li><a href="#contact">> Contact</a></li>
-        </ul>
-    </nav>
-
-    <!-- 
-      MAIN CONTENT SECTION
-      This is the scrollable area on the right.
-    -->
-    <main class="content">
+    <div class="container">
         
-        <h1>Nguyen Le Thuy Lan</h1>
-        <p class="terminal-block">
-            $ whoami<br>
-            > Data Scientist | Bioinformatics<br>
-        </p>
+        <!-- Top Navigation Bar -->
+        <header>
+            <div class="site-branding">
+                <h1>NGUYEN LE THUY LAN</h1>
+                <p>DATA SYSTEM / REV. 2026</p>
+            </div>
+            <ul class="nav-links">
+                <li><a href="index.html" class="active">01 POSTS</a></li>
+                <li><a href="#projects">02 PROJECTS</a></li>
+                <li><a href="#topics">03 TOPICS</a></li>
+                <li><a href="#about">04 ABOUT</a></li>
+            </ul>
+        </header>
 
-        <!-- Section 1 -->
-        <h2 id="about">1. About Me</h2>
-        <p>
-            Hello, World! I am a data enthusiast with a strong foundation in life sciences. 
-            Currently, I am pursuing my Master's degree in Data Science. I am passionate about 
-            uncovering hidden patterns within complex datasets and bridging the analytical gap 
-            between biology and machine learning.
-        </p>
-        <p>
-            Welcome to my digital garden! This is where I document my learning journey, share 
-            code snippets, and write about my experiences navigating the ever-evolving data landscape.
-        </p>
+        <!-- Main Heading Area -->
+        <section class="section-header">
+            <div class="sub-title">Log-Archive</div>
+            <h2 class="main-title">Posts</h2>
+            <p class="tagline">Field notes, bioinformatics pipelines, data science references, and lessons learned.</p>
+        </section>
 
-        <!-- Section 2 -->
-        <h2 id="background">2. The Bioinformatics Root</h2>
-        <p>
-            My academic journey actually began in Biotechnology. From there, I naturally gravitated 
-            towards Bioinformatics, spending my time analyzing genomic sequences and molecular biology data. 
-        </p>
-        <p>
-            Working with DNA, RNA, and protein structures was an incredible training ground. It taught 
-            me the critical importance of meticulous data cleaning and how to handle the sheer complexity 
-            of high-dimensional data spaces.
-        </p>
-        <p>
-            Tools of the trade: <span class="highlight">R, Python, SQL , Bash Scripting, Linux</span>.
-            (Scroll down to see the sidebar stick!)
-        </p>
-        
-        <!-- Adding some dummy space to ensure scrolling is visible -->
-        <br><br><br><br><br>
+        <hr class="divider">
 
-        <!-- Section 3 -->
-        <h2 id="data-science">3. Transition to Data Science</h2>
-        <p>
-            As I delved deeper into computational biology, my curiosity about the underlying algorithms grew. 
-            I wanted to truly understand the mathematical mechanics behind the models I was using and, more importantly, 
-            learn how to apply these methods to various types of data beyond just biology.
-        </p>
-        <p>
-            This drive to broaden my technical horizons led me to my current Master's program in Data Science. 
-            Now, I am expanding my toolkit to include mainstream predictive modeling, Natural Language Processing (NLP), 
-            and Deep Learning to tackle a much wider array of data challenges.
-        </p>
-        <p>
-            Current tech stack: <span class="highlight">Python, Pandas, Scikit-learn, PyTorch, SQL</span>.
-        </p>
-        <!-- Adding more dummy space -->
-        <br><br><br><br><br>
+        <!-- Search Feature Block -->
+        <section class="search-section">
+            <div class="sub-title">Search</div>
+            <div class="search-bar-wrapper">
+                <input type="text" class="search-input" placeholder="TITLE, TOPIC, OR KEYWORD...">
+                <span class="search-shortcut">/</span>
+            </div>
+            <div class="search-hint">PRESS '/' TO SEARCH</div>
+        </section>
 
+        <!-- Pinned / List of Notes -->
+        <section class="records-section">
+            <h3>Pinned notes</h3>
+            <div class="records-header-info">
+                <span>Date</span>
+                <span>Subject</span>
+                <span style="text-align: right;">Topic</span>
+            </div>
 
-        <!-- Section 4 -->
-        <h2 id="contact">5. Contact</h2>
-        <p>
-            I am always open to discussing data, biology, or potential collaborations.
-        </p>
-        <p class="terminal-block">
-            $ echo "Reach out to me:"<br>
-            > Email: nguyenlethuylan02l@gmail.com<br>
-            > LinkedIn: /https://www.linkedin.com/in/nguyen-le-thuy-lan-331646274/<br>
-            > GitHub: https://github.com/nguyenlethuylan
-        </p>
+            <!-- Record Item 1 -->
+            <div class="record-item">
+                <span class="record-date">2026-08-04</span>
+                <span class="record-title"><a href="api.html">Building Clean APIs for Data Science Pipelines</a></span>
+                <span class="record-topic">Engineering</span>
+            </div>
 
-        <br><br><br><br><br><br> <!-- Extra space at the bottom for comfortable scrolling -->
-    </main>
+            <!-- Record Item 2 -->
+            <div class="record-item">
+                <span class="record-date">2026-07-20</span>
+                <span class="record-title"><a href="#">Genomic Sequence Alignment Optimization</a></span>
+                <span class="record-topic">Bioinformatics</span>
+            </div>
+
+            <!-- Record Item 3 -->
+            <div class="record-item">
+                <span class="record-date">2026-06-15</span>
+                <span class="record-title"><a href="#">From R to Python: Scaling Machine Learning Models</a></span>
+                <span class="record-topic">Data Science</span>
+            </div>
+        </section>
+
+        <!-- Footer Information -->
+        <footer>
+            <span>DESIGNED WITH MINIMAL TERMINAL VIBE</span>
+            <span>NGUYEN LE THUY LAN © 2026</span>
+        </footer>
+
+    </div>
 
 </body>
 </html>
