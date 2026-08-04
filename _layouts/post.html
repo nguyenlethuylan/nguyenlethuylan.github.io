@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ page.title }} | Nguyen Le Thuy Lan</title>
+    <style>
+        /* CSS Reset */
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+
+        /* THEME: VS Code Dark+ */
+        :root {
+            --bg-color: #1e1e1e;         
+            --text-main: #d4d4d4;        
+            --text-muted: #6a9955;       
+            --accent-blue: #569cd6;      
+            --accent-teal: #4ec9b0;      
+            --accent-yellow: #dcdcaa;    
+            --accent-string: #ce9178;    
+            --border-color: #333333;     
+            --terminal-bg: #181818;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            font-family: 'JetBrains Mono', 'Fira Code', 'Consolas', monospace;
+            line-height: 1.7;
+            padding: 40px 20px;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        /* --- Navigation --- */
+        .nav-bar {
+            margin-bottom: 40px;
+            font-size: 0.9rem;
+        }
+
+        .nav-bar a {
+            color: var(--accent-blue);
+            text-decoration: none;
+            display: inline-block;
+            transition: color 0.2s;
+        }
+
+        .nav-bar a:hover {
+            color: var(--accent-yellow);
+        }
+
+        /* --- Article Header --- */
+        .article-header {
+            border-bottom: 1px dashed var(--border-color);
+            padding-bottom: 20px;
+            margin-bottom: 30px;
+        }
+
+        .article-title {
+            font-size: 2rem;
+            color: var(--accent-yellow);
+            margin-bottom: 10px;
+            line-height: 1.3;
+        }
+
+        .article-meta {
+            color: var(--text-muted);
+            font-size: 0.9rem;
+        }
+
+        /* --- Markdown Content Styling (Phần này sẽ style tự động cho file .md của bạn) --- */
+        .article-content h1, .article-content h2, .article-content h3 {
+            color: var(--accent-blue);
+            margin-top: 40px;
+            margin-bottom: 15px;
+            font-weight: normal;
+        }
+
+        .article-content h2 {
+            border-bottom: 1px solid var(--border-color);
+            padding-bottom: 5px;
+        }
+
+        .article-content p {
+            margin-bottom: 15px;
+            text-align: justify;
+        }
+
+        .article-content a {
+            color: var(--accent-teal);
+            text-decoration: none;
+        }
+
+        .article-content a:hover {
+            text-decoration: underline;
+        }
+
+        .article-content ul, .article-content ol {
+            margin-bottom: 15px;
+            padding-left: 20px;
+        }
+
+        .article-content li {
+            margin-bottom: 8px;
+        }
+
+        /* In đậm, in nghiêng, trích dẫn */
+        .article-content strong {
+            color: var(--accent-string);
+            font-weight: normal;
+        }
+
+        .article-content em {
+            color: var(--text-muted);
+        }
+
+        .article-content blockquote {
+            border-left: 3px solid var(--text-muted);
+            padding-left: 15px;
+            color: var(--text-muted);
+            margin-bottom: 15px;
+            background-color: var(--terminal-bg);
+            padding: 10px 15px;
+            border-radius: 4px;
+        }
+
+        /* Style cho bảng (Table) */
+        .article-content table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 20px;
+            font-size: 0.9rem;
+        }
+
+        .article-content th, .article-content td {
+            border: 1px solid var(--border-color);
+            padding: 10px;
+            text-align: left;
+        }
+
+        .article-content th {
+            color: var(--accent-teal);
+            background-color: var(--terminal-bg);
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        
+        <!-- Nút Back về Home -->
+        <div class="nav-bar">
+            <!-- Dấu / nghĩa là quay về thư mục gốc (index.html) -->
+            <a href="/">cd .. (Back to Home)</a>
+        </div>
+
+        <!-- Header tự động lấy từ Front Matter của file .md -->
+        <header class="article-header">
+            <h1 class="article-title">{{ page.title }}</h1>
+            <div class="article-meta">
+                # Date: {{ page.date | date: "%Y-%m-%d" }} | Tags: [{{ page.categories | join: ", " }}]
+            </div>
+        </header>
+
+        <!-- Main Content tự động render từ Markdown sang HTML -->
+        <main class="article-content">
+            {{ content }}
+        </main>
+    </div>
+
+</body>
+</html>
