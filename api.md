@@ -1,4 +1,5 @@
 ---
+layout: post
 title: "S001: Understanding APIs: A Comprehensive Guide to Modern Protocols"
 description: "A developer's guide to the 7 most common API architectures, their characteristics, and when to use them."
 date: 2026-08-04
