@@ -1,0 +1,188 @@
+---
+// src/layouts/BlogPostLayout.astro
+const { frontmatter, headings } = Astro.props;
+
+// FILTER: Only keep h2 and h3 tags for the Table of Contents
+const tocHeadings = headings ? headings.filter((h: any) => h.depth === 2 || h.depth === 3) : [];
+---
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{frontmatter.title} | Nguyen Le Thuy Lan</title>
+    <style>
+        /* CSS Reset & VS Code Theme Variables */
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        :root {
+            --bg-color: #1e1e1e; --text-main: #d4d4d4; --text-muted: #6a9955;
+            --accent-blue: #569cd6; --accent-teal: #4ec9b0; --accent-yellow: #dcdcaa;
+            --accent-string: #ce9178; --border-color: #333333; --terminal-bg: #181818;
+        }
+        body {
+            background-color: var(--bg-color); color: var(--text-main);
+            font-family: 'JetBrains Mono', 'Fira Code', 'Consolas', monospace;
+            line-height: 1.7; 
+        }
+
+        /* 
+         * LAYOUT STYLES 
+         * Using Flexbox to place Sidebar (Left) and Content (Right)
+         */
+        .layout-wrapper {
+            display: flex;
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 40px 20px;
+            gap: 40px; 
+            align-items: flex-start; /* Prevents sidebar from stretching vertically */
+        }
+
+        /* --- TOC Sidebar Styles --- */
+        .sidebar {
+            width: 260px;
+            flex-shrink: 0;
+            position: sticky;
+            top: 40px;
+            max-height: calc(100vh - 80px);
+            overflow-y: auto;
+        }
+
+        .nav-bar { margin-bottom: 30px; font-size: 0.9rem; }
+        .nav-bar a { color: var(--accent-blue); text-decoration: none; transition: color 0.2s; }
+        .nav-bar a:hover { color: var(--accent-yellow); }
+
+        .toc-title { color: var(--accent-teal); font-size: 1.1rem; margin-bottom: 15px; font-weight: normal; }
+        
+        .toc-list { list-style: none; padding-left: 0; }
+        .toc-list li { margin-bottom: 10px; line-height: 1.4; }
+        .toc-list li.depth-3 { padding-left: 15px; }
+
+        /* Force TOC links to use theme colors, overriding default browser blue/purple */
+        .sidebar a.toc-link {
+            color: var(--text-muted);
+            text-decoration: none;
+            font-size: 0.85rem;
+            display: block;
+            transition: all 0.2s ease;
+            border-left: 2px solid transparent;
+            padding-left: 10px;
+            margin-left: -12px;
+        }
+
+        .sidebar a.toc-link:hover { color: var(--accent-blue); }
+
+        /* Active state class triggered by Javascript */
+        .sidebar a.toc-link.active {
+            color: var(--accent-yellow);
+            border-left: 2px solid var(--accent-yellow);
+            font-weight: bold;
+        }
+
+        /* --- Main Content Styles --- */
+        .main-content {
+            flex-grow: 1;
+            min-width: 0; 
+        }
+
+        .article-header { border-bottom: 1px dashed var(--border-color); padding-bottom: 20px; margin-bottom: 30px; }
+        .article-title { font-size: 2rem; color: var(--accent-yellow); margin-bottom: 10px; line-height: 1.3; }
+        .article-meta { color: var(--text-muted); font-size: 0.9rem; }
+
+        /* Dynamic Markdown Content Styling */
+        .article-content :global(h1), .article-content :global(h2), .article-content :global(h3) {
+            color: var(--accent-blue); margin-top: 40px; margin-bottom: 15px; font-weight: normal;
+            scroll-margin-top: 40px; 
+        }
+        .article-content :global(h2) { border-bottom: 1px solid var(--border-color); padding-bottom: 5px; }
+        .article-content :global(p) { margin-bottom: 15px; text-align: justify; }
+        .article-content :global(a) { color: var(--accent-teal); text-decoration: none; }
+        .article-content :global(a:hover) { text-decoration: underline; }
+        .article-content :global(ul), .article-content :global(ol) { margin-bottom: 15px; padding-left: 20px; }
+        .article-content :global(li) { margin-bottom: 8px; }
+        .article-content :global(strong) { color: var(--accent-string); font-weight: normal; }
+        .article-content :global(em) { color: var(--text-muted); }
+        .article-content :global(blockquote) {
+            border-left: 3px solid var(--text-muted); padding-left: 15px; color: var(--text-muted);
+            margin-bottom: 15px; background-color: var(--terminal-bg); padding: 10px 15px; border-radius: 4px;
+        }
+        .article-content :global(table) { width: 100%; border-collapse: collapse; margin-bottom: 20px; font-size: 0.9rem; }
+        .article-content :global(th), .article-content :global(td) { border: 1px solid var(--border-color); padding: 10px; text-align: left; }
+        .article-content :global(th) { color: var(--accent-teal); background-color: var(--terminal-bg); }
+
+        /* Responsive layout for smaller screens */
+        @media (max-width: 900px) {
+            .layout-wrapper { flex-direction: column; gap: 20px; }
+            .sidebar { width: 100%; position: static; max-height: none; border-bottom: 1px solid var(--border-color); padding-bottom: 20px; }
+        }
+    </style>
+</head>
+<body>
+    <div class="layout-wrapper">
+        
+        <!-- Sidebar containing Table of Contents -->
+        <aside class="sidebar">
+            <div class="nav-bar">
+                <a href="/">cd .. (Back to Home)</a>
+            </div>
+            
+            <h3 class="toc-title">Table of Contents</h3>
+            <ul class="toc-list">
+                {tocHeadings.map((heading: any) => (
+                    <li class={`depth-${heading.depth}`}>
+                        <a href={`#${heading.slug}`} class="toc-link" data-slug={heading.slug}>
+                            > {heading.text}
+                        </a>
+                    </li>
+                ))}
+            </ul>
+        </aside>
+
+        <!-- Main Article Content -->
+        <main class="main-content">
+            <header class="article-header">
+                <h1 class="article-title">{frontmatter.title}</h1>
+                <div class="article-meta">
+                    # Date: {frontmatter.date.toISOString().split('T')[0]} 
+                    {frontmatter.categories && `| Tags: [${frontmatter.categories.join(', ')}]`}
+                </div>
+            </header>
+            
+            <div class="article-content">
+                <slot />
+            </div>
+        </main>
+    </div>
+
+    <!-- Scroll-spy script to highlight active TOC link -->
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const sections = document.querySelectorAll('.article-content h2, .article-content h3');
+            const tocLinks = document.querySelectorAll('.toc-link');
+
+            const observerOptions = {
+                root: null,
+                rootMargin: '0px 0px -70% 0px', 
+                threshold: 0
+            };
+
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        tocLinks.forEach(link => link.classList.remove('active'));
+                        const activeId = entry.target.getAttribute('id');
+                        const activeLink = document.querySelector(`.toc-link[data-slug="${activeId}"]`);
+                        if (activeLink) {
+                            activeLink.classList.add('active');
+                        }
+                    }
+                });
+            }, observerOptions);
+
+            sections.forEach(section => {
+                observer.observe(section);
+            });
+        });
+    </script>
+</body>
+</html> 

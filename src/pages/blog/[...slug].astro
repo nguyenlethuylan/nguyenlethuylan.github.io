@@ -1,0 +1,23 @@
+---
+// src/pages/blog/[...slug].astro
+import { getCollection, render } from 'astro:content';
+import BlogPostLayout from '../../layouts/BlogPostLayout.astro';
+
+// This function tells Astro which routes to generate at build time
+export async function getStaticPaths() {
+  const blogEntries = await getCollection('blog');
+  return blogEntries.map(entry => ({
+    params: { slug: entry.id }, 
+    props: { entry },
+  }));
+}
+
+const { entry } = Astro.props;
+
+// UPDATE: Extract 'headings' along with 'Content' from the render function
+const { Content, headings } = await render(entry);
+---
+<!-- UPDATE: Pass the extracted 'headings' to the layout as a prop -->
+<BlogPostLayout frontmatter={entry.data} headings={headings}>
+  <Content />
+</BlogPostLayout>
