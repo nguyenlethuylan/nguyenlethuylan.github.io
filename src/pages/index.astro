@@ -1,10 +1,5 @@
 ---
-import { getCollection } from 'astro:content';
-
-// Fetch all blog posts
-const allPosts = await getCollection('blog');
-// Sort posts by date (newest first)
-const sortedPosts = allPosts.sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf());
+// Không cần getCollection('blog') ở đây nữa vì đã chuyển sang trang posts.astro
 ---
 <!DOCTYPE html>
 <html lang="en">
@@ -43,12 +38,6 @@ const sortedPosts = allPosts.sort((a, b) => b.data.date.valueOf() - a.data.date.
         .intro-section h2 span.func { color: var(--accent-yellow); }
         .intro-section h2 span.string { color: var(--accent-string); }
         .intro-section h2 span.punct { color: var(--text-main); }
-        .posts-section h3 { font-size: 1.1rem; color: var(--accent-string); margin-bottom: 20px; font-weight: normal; }
-        .post-item { display: grid; grid-template-columns: 120px 1fr; padding: 12px 10px; border-radius: 6px; align-items: center; text-decoration: none; transition: background-color 0.2s ease; border-bottom: 1px solid #2d2d2d; }
-        .post-item:hover { background-color: var(--hover-bg); }
-        .post-date { color: #858585; font-size: 0.85rem; }
-        .post-title { color: var(--text-main); font-size: 1rem; }
-        .post-item:hover .post-title { color: var(--accent-teal); }
         .terminal-block { background-color: var(--terminal-bg); padding: 20px; border-radius: 6px; border: 1px solid var(--border-color); margin-top: 10px; font-size: 0.95rem; }
         .terminal-block a { color: var(--accent-teal); text-decoration: none; }
         .terminal-block a:hover { text-decoration: underline; }
@@ -63,9 +52,9 @@ const sortedPosts = allPosts.sort((a, b) => b.data.date.valueOf() - a.data.date.
                 <p># Self-taught | Always Updating | Data Science</p>
             </div>
             <ul class="nav-links">
-                <li><a href="#about" class="active">about_me</a></li>
-                <li><a href="#posts">posts</a></li>
-                <li><a href="#contact">contact</a></li>
+                <li><a href="/" class="active">about_me</a></li>
+                <!-- Change href from #posts to /posts -->
+                <li><a href="/posts">posts</a></li>
             </ul>
         </header>
 
@@ -88,18 +77,6 @@ const sortedPosts = allPosts.sort((a, b) => b.data.date.valueOf() - a.data.date.
             <p>As I delved deeper into computational biology, my curiosity about the underlying algorithms grew. I wanted to truly understand the mathematical mechanics behind the models I was using and learn how to apply these methods to various types of data beyond just biology.</p>
             <p>This drive to broaden my technical horizons led me to my current Master's program in Data Science. Now, I am expanding my toolkit to include mainstream predictive modeling, Natural Language Processing (NLP), and Deep Learning to tackle a much wider array of data challenges.</p>
             <p style="color: var(--text-muted);"># Current tech stack: Python, Pandas, Scikit-learn, PyTorch, SQL.</p>
-        </section>
-
-        <section class="content-section posts-section" id="posts">
-            <h2>get_recent_posts</h2>
-            <h3>'./src/content/blog/'</h3>
-            
-            {sortedPosts.map(post => (
-                <a href={`/blog/${post.id}`} class="post-item">
-                    <span class="post-date">{post.data.date.toISOString().split('T')[0]}</span>
-                    <span class="post-title">{post.data.title}</span>
-                </a>
-            ))}
         </section>
 
         <section class="content-section" id="contact">

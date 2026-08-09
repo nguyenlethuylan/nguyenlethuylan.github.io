@@ -1,0 +1,84 @@
+---
+// src/pages/posts.astro
+import { getCollection } from 'astro:content';
+
+// Fetch all blog posts and sort by date
+const allPosts = await getCollection('blog');
+const sortedPosts = allPosts.sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf());
+---
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>All Posts | Nguyen Le Thuy Lan</title>
+    <style>
+        /* CSS Reset & VS Code Theme Variables */
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        :root {
+            --bg-color: #1e1e1e; --text-main: #d4d4d4; --text-muted: #6a9955;
+            --accent-blue: #569cd6; --accent-teal: #4ec9b0; --accent-yellow: #dcdcaa;
+            --accent-string: #ce9178; --border-color: #333333; --hover-bg: #2a2d2e; --terminal-bg: #181818;
+        }
+        body {
+            background-color: var(--bg-color); color: var(--text-main);
+            font-family: 'JetBrains Mono', 'Fira Code', 'Consolas', monospace; line-height: 1.7; padding: 40px 20px;
+        }
+        .container { max-width: 900px; margin: 0 auto; }
+        header { display: flex; justify-content: space-between; align-items: flex-end; border-bottom: 1px solid var(--border-color); padding-bottom: 20px; margin-bottom: 50px; flex-wrap: wrap; gap: 20px; }
+        .site-branding h1 { font-size: 1.2rem; color: var(--accent-blue); font-weight: normal; }
+        .site-branding p { font-size: 0.85rem; color: var(--text-muted); margin-top: 5px; }
+        .site-branding span.bracket { color: var(--accent-blue); }
+        .site-branding span.classname { color: var(--accent-teal); }
+        .nav-links { display: flex; gap: 25px; list-style: none; font-size: 0.9rem; }
+        .nav-links a { color: var(--text-main); text-decoration: none; transition: color 0.2s ease; }
+        
+        /* Highlight the active menu item */
+        .nav-links a.active, .nav-links a:hover { color: var(--accent-yellow); }
+        
+        .content-section { margin-bottom: 60px; }
+        .content-section h2 { font-size: 1.5rem; color: var(--accent-yellow); font-weight: normal; margin-bottom: 20px; display: flex; align-items: center; }
+        .content-section h2::before { content: 'def '; color: var(--accent-blue); margin-right: 8px; }
+        .content-section h2::after { content: '():'; color: var(--text-main); }
+        .posts-section h3 { font-size: 1.1rem; color: var(--accent-string); margin-bottom: 20px; font-weight: normal; }
+        .post-item { display: grid; grid-template-columns: 120px 1fr; padding: 12px 10px; border-radius: 6px; align-items: center; text-decoration: none; transition: background-color 0.2s ease; border-bottom: 1px solid #2d2d2d; }
+        .post-item:hover { background-color: var(--hover-bg); }
+        .post-date { color: #858585; font-size: 0.85rem; }
+        .post-title { color: var(--text-main); font-size: 1rem; }
+        .post-item:hover .post-title { color: var(--accent-teal); }
+        footer { margin-top: 80px; border-top: 1px dashed var(--border-color); padding-top: 30px; font-size: 0.85rem; color: #858585; text-align: center; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <div class="site-branding">
+                <h1><span class="bracket">class</span> <span class="classname">NguyenLeThuyLan</span>:</h1>
+                <p># Self-taught | Always Updating | Data Science</p>
+            </div>
+            <ul class="nav-links">
+                <!-- Navigation updated to link to separate pages -->
+                <li><a href="/">about_me</a></li>
+                <li><a href="/posts" class="active">posts</a></li>
+            </ul>
+        </header>
+
+        <section class="content-section posts-section" id="posts">
+            <h2>get_all_posts</h2>
+            <h3>'./src/content/blog/'</h3>
+            
+            <!-- This loop maps all your markdown files into a list -->
+            {sortedPosts.map(post => (
+                <a href={`/blog/${post.id}`} class="post-item">
+                    <span class="post-date">{post.data.date.toISOString().split('T')[0]}</span>
+                    <span class="post-title">{post.data.title}</span>
+                </a>
+            ))}
+        </section>
+
+        <footer>
+            <p>return "Designed with VS Code vibes | Nguyen Le Thuy Lan © 2026"</p>
+        </footer>
+    </div>
+</body>
+</html>
