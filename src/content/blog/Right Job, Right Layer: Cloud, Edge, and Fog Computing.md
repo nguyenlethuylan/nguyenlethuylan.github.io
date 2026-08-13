@@ -4,7 +4,7 @@ date: 2026-08-09
 categories: [technology, cloud, architecture]
 ---
 
-# S002: Cloud, Edge, and Fog Computing: How to Tell Them Apart and Pick the Right Setup
+# Cloud, Edge, and Fog Computing: How to Tell Them Apart and Pick the Right Setup
 
 Every day, a modern factory can produce terabytes of data from IoT sensors, AI cameras, and industrial robots. If all of that data had to travel thousands of kilometers to a data center for analysis, then travel all the way back with a control command, a production line that needs to stop in a split second to avoid a collision would never react in time.
 

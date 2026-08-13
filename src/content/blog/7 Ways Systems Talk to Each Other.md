@@ -5,7 +5,7 @@ date: 2026-08-04
 categories: [api, engineering, web-development, architecture]
 ---
 
-# S001: Understanding APIs: A Comprehensive Guide to Modern Protocols
+# Understanding APIs: A Comprehensive Guide to Modern Protocols
 
 An Application Programming Interface (API) lets different systems talk to each other, share data, and run processes. Choosing the right API style for your project matters a lot — it affects speed, security, and how easy the system is to scale.
 
