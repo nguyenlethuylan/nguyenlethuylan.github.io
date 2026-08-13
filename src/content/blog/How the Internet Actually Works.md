@@ -33,7 +33,7 @@ How does TCP ensure zero data loss?
    * **SYN-ACK:** The Server replies "Hi, yes I am ready!"
    * **ACK (Acknowledge):** The Client confirms "Great, I'm sending data now."
 
-   ![TCP 3-Way Handshake](../public/images/s003/TCP-3-Way-Handshake.png)
+   ![TCP 3-Way Handshake](/images/s003/TCP-3-Way-Handshake.png)
 
 2. **Breaking Data & Numbering System:** You can't send a massive 4K video all at once. TCP breaks the data into small parts (packets) and **numbers each part**.
    * *Why?* If packet #5 gets lost on the way, the receiving device will notice it's missing and request a **retransmission** of only packet #5, instead of downloading the whole video again. Once all packets arrive, they are reassembled in the correct numbered order.
@@ -48,7 +48,7 @@ How does TCP ensure zero data loss?
    * The first side sends a final **ACK**, and the connection is fully closed.
 
    This is why closing a TCP connection is often called a "4-way handshake", it makes sure neither side loses data that was still in transit when the other side wanted to stop.
-   ![TCP 4-Way Handshake](../public/images/s003/TCP-4-way-handshake.webp)
+   ![TCP 4-Way Handshake](/images/s003/TCP-4-way-handshake.webp)
 
 ---
 
@@ -56,7 +56,7 @@ How does TCP ensure zero data loss?
 
 **UDP (User Datagram Protocol)** is the opposite of TCP. It acts like a high-speed flyer distributor.
 
-![UDP Working](../blog/public/images/s003/udp-working.png)
+![UDP Working](/images/s003/udp-working.png)
 
 * **No Setup, No Handshake:** It does not check if the other side is ready. It sends data immediately.
 * **No Confirmation:** There is no numbering system, no acknowledgements, and no retransmissions.
@@ -71,7 +71,7 @@ How does TCP ensure zero data loss?
 
 Computers talk to each other using long strings of numbers (IP addresses). But humans can't remember all those numbers. **DNS (Domain Name System)** translates easy-to-remember domain names (like `google.com`) into computer-friendly IP addresses (like `142.250.190.46`).
 
-![DNS Process](../public/images/s003/DNS-Process.png)
+![DNS Process](/images/s003/DNS-Process.png)
 
 ### How a Lookup Actually Travels
 A single DNS lookup usually isn't just "ask one server, get an answer." It's a small relay race through a hierarchy:
@@ -107,7 +107,7 @@ Getting that address happens through a short 4-step exchange, often remembered b
 3. **Request:** Your device replies, formally requesting that specific offered address.
 4. **Acknowledge:** The server confirms — the address is now officially yours (for a while).
 
-![DHCP Handshake](../public/images/s003/DHCP.png)
+![DHCP Handshake](/images/s003/DHCP.png)
 
 That last part matters: DHCP addresses are usually **leased**, not permanent. After a set period, your device has to renew the lease, which is why your home IP can occasionally change if a device has been offline for a long time.
 
