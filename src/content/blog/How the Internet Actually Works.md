@@ -1,5 +1,5 @@
 ---
-title: "Demystifying Network Protocols: How the Internet Actually Works"
+title: "S003: Demystifying Network Protocols: How the Internet Actually Works"
 date: 2026-08-13
 categories: [technology, networking, architecture]
 ---
@@ -48,7 +48,7 @@ How does TCP ensure zero data loss?
    * The first side sends a final **ACK**, and the connection is fully closed.
 
    This is why closing a TCP connection is often called a "4-way handshake", it makes sure neither side loses data that was still in transit when the other side wanted to stop.
-   ![TCP 4-Way Handshake](/images/s003/TCP-4-way-handshake.webp)
+   ![TCP 4-Way Handshake](/images/s003/TCP-4-way-handshake.jpg)
 
 ---
 
@@ -107,7 +107,7 @@ Getting that address happens through a short 4-step exchange, often remembered b
 3. **Request:** Your device replies, formally requesting that specific offered address.
 4. **Acknowledge:** The server confirms — the address is now officially yours (for a while).
 
-![DHCP Handshake](/images/s003/DHCP.png)
+![DHCP Handshake](git push origin main/images/s003/DHCP.png)
 
 That last part matters: DHCP addresses are usually **leased**, not permanent. After a set period, your device has to renew the lease, which is why your home IP can occasionally change if a device has been offline for a long time.
 
@@ -252,13 +252,15 @@ Each of those "smaller networks" — a large ISP, a university network, a big cl
 
 The 12 protocols above each solve one piece of the puzzle. A few extra concepts explain how those pieces fit into a single working system.
 
-### Ports — One Address, Many Conversations
+### Ports 
+*One Address, Many Conversations*
 As mentioned in Section 1, an IP address gets data to the right *device*, and a **port number** gets it to the right *application* on that device. This is why a single server can run a website (port 443), an email service (port 587), and an SSH login (port 22) simultaneously on the exact same IP address, the port number is what keeps all those conversations separate.
 
-### NAT — Sharing One Public IP Among Many Devices
-Your home probably has just **one** public IP address from your ISP, yet your phone, laptop, and smart TV are all online at once. **NAT (Network Address Translation)**, running on your router, is what makes this possible: it rewrites the private IP addresses of your devices into that single public IP (and back again for replies), keeping track of which internal device each response belongs to using, you guessed it, port numbers. NAT is also a major reason IPv4 addresses haven't run out even faster than they have.
+### NAT 
+*Sharing One Public IP Among Many Devices*
+Your home probably has just one public IP address from your ISP, yet your phone, laptop, and smart TV are all online at once. **NAT (Network Address Translation)**, running on your router, is what makes this possible: it rewrites the private IP addresses of your devices into that single public IP (and back again for replies), keeping track of which internal device each response belongs to using, you guessed it, port numbers. NAT is also a major reason IPv4 addresses haven't run out even faster than they have.
 
-### Where Everything Fits: The Layered Model
+### The Layered Model
 Networking is commonly described in **layers**, where each layer only worries about its own job and hands off to the layer below/above it. A simplified view, matching the protocols above:
 
 | Layer | Job | Protocols From This Article |
@@ -360,7 +362,8 @@ Before combining these commands into a diagnosis, it helps to know exactly what 
 * `whois domain.com` — looks up who registered the domain and when *that* registration expires, a different kind of expiry than the TLS certificate's, and one that's easy to confuse with it.
 With the toolkit itself out of the way, the real skill isn't running these commands. It's knowing what a result from each one does, and doesn't, actually tell you — which is where things get interesting.
  
-### From Checks to Answers: "What Do I Have?" vs "What Do I Not Have?"
+### From Checks to Answers
+> **"What Do I Have?" vs "What Do I Not Have?"**
  
 Running the commands from the overview above is the easy part. The harder part is turning a wall of terminal output into two simple answers:
  
