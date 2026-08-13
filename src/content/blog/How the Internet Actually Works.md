@@ -12,7 +12,6 @@ In the digital world, networking is like a global postal and traffic system. **P
 
 Let's dive into the 12 most essential network protocols that power our modern internet.
 
----
 
 ## 1. TCP/IP: The Foundation of the Internet
 
@@ -50,7 +49,6 @@ How does TCP ensure zero data loss?
    This is why closing a TCP connection is often called a "4-way handshake", it makes sure neither side loses data that was still in transit when the other side wanted to stop.
    ![TCP 4-Way Handshake](/images/s003/TCP-4-way-handshake.jpg)
 
----
 
 ## 2. UDP: The Need for Speed
 
@@ -64,8 +62,6 @@ How does TCP ensure zero data loss?
 * **Use Cases:** It is perfect for fast-paced scenarios where speed matters more than perfection, such as Online Gaming, VoIP (Video calls), and Live Streaming. A tiny glitch in a game is better than a 2-second freeze waiting for old data to arrive.
 * **Why It's So Light — The Header:** You can see the speed difference in the numbers themselves. A UDP header is only **8 bytes** — just enough for a source port, destination port, length, and an optional checksum. A TCP header, by comparison, is at least **20 bytes** and carries all the extra bookkeeping (sequence numbers, acknowledgment numbers, flow-control window size) needed for its reliability guarantees. That difference is the literal cost of "no overhead."
 
-
----
 
 ## 3. DNS: The Internet's Phonebook
 
@@ -92,7 +88,6 @@ DNS doesn't only store IP addresses. A few record types you'll commonly run into
 * **MX record:** Points to the mail servers responsible for handling email for that domain.
 * **TXT record:** Holds arbitrary text, often used for verification or security policies (like SPF/DKIM for email).
 
----
 
 ## 4. DHCP: The IP Distributor
 
@@ -111,7 +106,6 @@ Getting that address happens through a short 4-step exchange, often remembered b
 
 That last part matters: DHCP addresses are usually **leased**, not permanent. After a set period, your device has to renew the lease, which is why your home IP can occasionally change if a device has been offline for a long time.
 
----
 
 ## 5. HTTP & HTTPS: The Language of the Web
 
@@ -147,7 +141,6 @@ HTTPS achieves this by wrapping ordinary HTTP inside a **TLS** encryption layer 
 * **HTTP/2** introduced **multiplexing** — multiple requests and responses can travel over a single connection at the same time, which is a big speed win.
 * **HTTP/3** goes a step further by running over **QUIC** instead of TCP (see Section 11), avoiding TCP's head-of-line blocking entirely.
 
----
 
 ## 6. FTP, FTPS, and SFTP: Moving Files
 
@@ -163,7 +156,6 @@ HTTPS achieves this by wrapping ordinary HTTP inside a **TLS** encryption layer 
 ### Why the "S" Versions Exist
 Just like HTTP, plain FTP sends usernames, passwords, and file contents in cleartext — including the login credentials themselves, which makes it one of the riskier legacy protocols to leave exposed. FTPS and SFTP exist for exactly the same underlying reason HTTPS exists: to add encryption around a protocol that was originally designed with zero security in mind.
 
----
 
 ## 7. SSH: The Secure Remote Control
 
@@ -180,7 +172,6 @@ SSH typically runs on **port 22**, and securing a session happens in two stages:
 1. **Key Exchange (asymmetric):** The client and server use their key pair to agree on a shared secret, and — for key-based logins — the server confirms the client owns the matching private key, without that private key ever leaving the client's machine.
 2. **Session Encryption (symmetric):** Once that secret is established, SSH switches to fast symmetric encryption for the rest of the session. Asymmetric cryptography is powerful but computationally expensive, so it's only used briefly to safely set up a session key — the same "hand off to something faster" trick TLS uses (see Section 9).
 
----
 
 ## 8. SMTP, POP3, and IMAP: The Email Trio
 
@@ -202,7 +193,6 @@ Email travels through a small relay chain of its own:
 * **POP3:** port 110, or 995 when encrypted
 * **IMAP:** port 143, or 993 when encrypted
 
----
 
 ## 9. TLS/SSL: The Encryption Armor
 
@@ -217,7 +207,6 @@ This is the machinery hiding behind that little padlock icon in your browser:
 
 Modern **TLS 1.3** streamlined this into fewer round trips than older TLS/SSL versions, and added **forward secrecy** by default — meaning each session generates a fresh key, so even if one session's key were somehow exposed later, past and future sessions stay safe.
 
----
 
 ## 10. WebSocket: Real-Time Communication
 
@@ -226,7 +215,6 @@ While HTTP requires the browser to ask for updates, **WebSocket** creates a cont
 ### How It Gets Started
 A WebSocket connection doesn't appear out of nowhere — it's born from an ordinary HTTP request. The client sends a normal HTTP request containing an `Upgrade: websocket` header, essentially asking "can we switch protocols?" If the server agrees, it responds with `101 Switching Protocols`, and from that moment on, the same underlying TCP connection is repurposed to carry WebSocket frames instead of HTTP messages — staying open for as long as both sides want, instead of closing after a single request-response like ordinary HTTP.
 
----
 
 ## 11. QUIC: The Next Generation
 
@@ -237,7 +225,6 @@ QUIC is actually built on top of **UDP**. It rebuilds the error-checking mechani
 ### Solving TCP's Hidden Traffic Jam
 QUIC also fixes a subtle problem in HTTP/2-over-TCP called **head-of-line blocking**: because TCP delivers bytes in strict order, if a single packet belonging to *one* file on a page gets lost, *every other file* sharing that connection has to wait for it to be resent before any of them can continue. QUIC organizes data into independent **streams**, so a lost packet on one stream (say, one image) no longer stalls the others (like your page's HTML or CSS).
 
----
 
 ## 12. BGP: The Internet's Google Maps
 
@@ -246,7 +233,6 @@ QUIC also fixes a subtle problem in HTTP/2-over-TCP called **head-of-line blocki
 ### A Word on Autonomous Systems
 Each of those "smaller networks" — a large ISP, a university network, a big cloud provider is officially identified by a unique number called an **AS (Autonomous System) number**. When BGP runs *between* two different AS's, it's called **eBGP** (external BGP); when it's used to distribute routing information *inside* a single AS's own routers, it's called **iBGP** (internal BGP). That distinction is why BGP is sometimes described as working at two different scales at once — gluing the internet together globally, while also helping route traffic sanely within one organization's own network.
 
----
 
 ## Bonus: Concepts That Tie It All Together
 
