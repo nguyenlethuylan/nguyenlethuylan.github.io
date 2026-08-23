@@ -47,14 +47,16 @@ How does TCP ensure zero data loss?
    * The first side sends a final **ACK**, and the connection is fully closed.
 
    This is why closing a TCP connection is often called a "4-way handshake", it makes sure neither side loses data that was still in transit when the other side wanted to stop.
-   ![TCP 4-Way Handshake](/images/s003/TCP-4-way-handshake.jpg)
+   <img src="/images/s003/TCP-4-way-handshake.jpg" alt="TCP 4-Way Handshake" style="max-width: 100%; height: auto;" />
 
 
 ## 2. UDP: The Need for Speed
 
 **UDP (User Datagram Protocol)** is the opposite of TCP. It acts like a high-speed flyer distributor.
 
-![UDP Working](/images/s003/udp-working.png)
+
+<img src="/images/s003/udp-working.png" alt="UDP Working"style="max-width: 100%; height: auto;" />
+
 
 * **No Setup, No Handshake:** It does not check if the other side is ready. It sends data immediately.
 * **No Confirmation:** There is no numbering system, no acknowledgements, and no retransmissions.
