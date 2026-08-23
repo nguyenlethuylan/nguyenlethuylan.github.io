@@ -32,7 +32,8 @@ How does TCP ensure zero data loss?
    * **SYN-ACK:** The Server replies "Hi, yes I am ready!"
    * **ACK (Acknowledge):** The Client confirms "Great, I'm sending data now."
 
-   ![TCP 3-Way Handshake](/images/s003/TCP-3-Way-Handshake.png)
+   <img src="/images/s003/TCP-3-Way-Handshake.png" alt="TCP 3-Way Handshake" style="max-width: 100%; height: auto;" />
+
 
 2. **Breaking Data & Numbering System:** You can't send a massive 4K video all at once. TCP breaks the data into small parts (packets) and **numbers each part**.
    * *Why?* If packet #5 gets lost on the way, the receiving device will notice it's missing and request a **retransmission** of only packet #5, instead of downloading the whole video again. Once all packets arrive, they are reassembled in the correct numbered order.
@@ -55,7 +56,7 @@ How does TCP ensure zero data loss?
 **UDP (User Datagram Protocol)** is the opposite of TCP. It acts like a high-speed flyer distributor.
 
 
-<img src="/images/s003/udp-working.png" alt="UDP Working"style="max-width: 100%; height: auto;" />
+<img src="/images/s003/udp-working.png" alt="UDP Working" style="max-width: 100%; height: auto;" />
 
 
 * **No Setup, No Handshake:** It does not check if the other side is ready. It sends data immediately.
@@ -69,7 +70,7 @@ How does TCP ensure zero data loss?
 
 Computers talk to each other using long strings of numbers (IP addresses). But humans can't remember all those numbers. **DNS (Domain Name System)** translates easy-to-remember domain names (like `google.com`) into computer-friendly IP addresses (like `142.250.190.46`).
 
-![DNS Process](/images/s003/DNS-Process.png)
+<img src="/images/s003/DNS-Process.png" alt="DNS Process" style="max-width: 100%; height: auto;" />
 
 ### How a Lookup Actually Travels
 A single DNS lookup usually isn't just "ask one server, get an answer." It's a small relay race through a hierarchy:
