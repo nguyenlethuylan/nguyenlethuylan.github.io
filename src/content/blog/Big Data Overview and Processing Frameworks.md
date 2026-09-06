@@ -18,8 +18,6 @@ The problem is: **traditional computer systems (regular databases, a single serv
 
 The key point is not just "a lot of data." It is data at a scale that forces a different approach: instead of using one powerful server (scaling up), we use many cheaper servers working together (scaling out).
 
----
-
 ## 2. How Do We Know Data Is "Big Data"?
 
 Not every large data set counts as Big Data. Experts use five criteria, known as the **5 V's**, to decide:
@@ -49,7 +47,6 @@ A hospital collects patient data every day, mostly entered by hand from patient 
 - Veracity = "can this data be trusted?"
 - Value = "what useful result comes out in the end?"
 
----
 
 ## 3. The Core Problem: How to Store and Process Big Data
 
@@ -59,8 +56,6 @@ Once data reaches Big Data scale, two big problems appear:
 2. **Processing**: A single CPU cannot process data fast enough, so we need **distributed computing** breaking work into small pieces and running them in parallel across many machines (a cluster).
 
 This is why the Big Data tool landscape looks the way it does today: some tools focus on storage, some on processing, and — as the next section shows — processing itself splits into two very different philosophies.
-
----
 
 ## 4. Two Ways to Process Big Data: Batch vs Stream
 
@@ -283,7 +278,6 @@ A newer, Kafka-like distributed messaging and streaming platform that separates 
 
 None of these tools, on their own, solve the problem of serving results back to an application instantly. That is the job of a fast storage layer — which is where Apache Cassandra comes in.
 
----
 
 ## 5. Apache Cassandra: The Storage Layer for Fast Access
 
@@ -314,8 +308,6 @@ Cassandra is a **distributed NoSQL database** using a wide-column data model. It
 ### Typical Use Cases
 IoT sensor data, real-time chat/messaging data, large-scale product catalogs. Real-world examples: Instagram, Netflix, and Apple use Cassandra for systems that need constant writes and 24/7 availability. In practice, Cassandra is often placed at the *end* of a streaming pipeline — for example, Kafka → Flink → Cassandra — where processed events land and are then served instantly to applications.
 
----
-
 ## 6. Tools at a Glance
 
 ### Batch Tools
@@ -340,7 +332,6 @@ IoT sensor data, real-time chat/messaging data, large-scale product catalogs. Re
 
 Cassandra sits outside both tables — it is neither a batch nor a stream processing engine, but the fast storage layer that both approaches often write their results into.
 
----
 
 ## 7. Combining Them in Practice (Extra Useful Knowledge)
 
